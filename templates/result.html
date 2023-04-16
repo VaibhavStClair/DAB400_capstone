@@ -1,0 +1,17 @@
+<html>
+<body>
+
+
+<h1> Here are the topics associated with your response:</h1>
+<p>The Sentiment Score for your response is {{ss}} </p>
+<p>The cluster this response belongs to is {{cluster_number}} </p>
+<br>
+<p> The cluster words are {{cluster_words}}</p>
+<br>
+{% if plot_url %}
+  <p>Cluster interpretation for Cluster {{cluster_number}} is as per below visualization:</p>
+  <img src={{plot_url}} alt = "Image not displayed">
+{% endif %}
+
+</body>
+</html>

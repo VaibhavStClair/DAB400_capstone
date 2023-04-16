@@ -1,0 +1,12 @@
+pandas==1.4.4
+nltk
+matplotlib
+seaborn
+numpy
+flask
+scikit-learn
+SentimentAnalyzer
+requests
+pymysql
+ipython-sql
+mysqlclient
