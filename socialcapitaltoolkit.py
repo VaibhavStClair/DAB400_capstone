@@ -21,7 +21,6 @@ db_host = "localhost"
 db_username = "root"
 db_password = "Mysql@098"
 
-
 def socialcapitaltoolkit(pred: str):
     """This function will create clusters:
     - load the training data
@@ -46,9 +45,15 @@ def socialcapitaltoolkit(pred: str):
     # get sentiment of what user has written
     SIA = SentimentIntensityAnalyzer()
     ss = SIA.polarity_scores(pred)
+
+    # get ss as df so that a pie chart can be made
+
+    df_ss = pd.DataFrame(ss.items(), columns=['Sentiments', 'Values'])
+    df_ss.drop(index=df_ss.index[-1], axis=0, inplace=True)
+
     # load the user's response
-    pred = [f'''{pred}''']
-    pred_clean = [re.sub("[^A-Za-z]+", " ", ' '.join(pred))]
+    pred1 = [f'''{pred}''']
+    pred_clean = [re.sub("[^A-Za-z]+", " ", ' '.join(pred1))]
 
     pred_data = pd.DataFrame(pred_clean, columns=['Submission_Text'])
 
@@ -66,7 +71,7 @@ def socialcapitaltoolkit(pred: str):
 
     x = v.fit_transform(st['cleaned'].values.astype('U'))  ## Even astype(str) would work
 
-    # initialize kmeans with 4 centroids
+    # initialize kmeans with 10 centroids
     kmeans = KMeans(n_clusters=10, random_state=42)
 
     # fit the model
@@ -133,4 +138,5 @@ def socialcapitaltoolkit(pred: str):
                                  json=json_data)
     dict_output_df = pd.json_normalize(pd.DataFrame(json.loads(resp_cluster.text)[0])['classification'])
 
-    return response_list, dict_output_df, var_list[cluster_number], cluster_number, ss
+    return response_list, dict_output_df, var_list[cluster_number], cluster_number, df_ss, pred
+

@@ -13,7 +13,7 @@ def connectivity(db_name,db_host,db_username,db_password):
     conn = pymysql.connect(
             host = db_host,
             port = int(3306),
-            user = "root",
+            user = db_username,
             password = db_password,
             db = db_name)
 
